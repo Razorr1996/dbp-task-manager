@@ -1,8 +1,7 @@
 FROM python:3.9-slim-buster
 
-ENV PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    POETRY_VERSION=1.6.1
+ENV PYTHONFAULTHANDLER=1
+ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
@@ -26,6 +25,8 @@ RUN apt-get update -qq \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
+
+ENV POETRY_VERSION=1.6.1
 
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
