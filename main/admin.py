@@ -3,10 +3,15 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import User, Tag, Task
 
-admin.site.register(User, UserAdmin)
+
+class TaskManagerAdminSite(admin.AdminSite):
+    pass
 
 
-@admin.register(Task)
+task_manager_admin_site = TaskManagerAdminSite(name="Task manager admin")
+
+
+@admin.register(Task, site=task_manager_admin_site)
 class TaskAdmin(admin.ModelAdmin):
     ordering = ("-id",)
     list_display = (
@@ -26,7 +31,7 @@ class TaskInline(admin.TabularInline):
     model = Task.tags.through
 
 
-@admin.register(Tag)
+@admin.register(Tag, site=task_manager_admin_site)
 class TagAdmin(admin.ModelAdmin):
     ordering = ("id",)
     list_display = (
@@ -36,3 +41,10 @@ class TagAdmin(admin.ModelAdmin):
     )
     readonly_fields = ("id",)
     inlines = (TaskInline,)
+
+
+UserAdmin.list_display += ("role",)
+UserAdmin.list_filter += ("role",)
+UserAdmin.fieldsets += (("Extra Fields", {"fields": ("role",)}),)
+
+task_manager_admin_site.register(User, UserAdmin)
