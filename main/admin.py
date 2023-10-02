@@ -39,12 +39,31 @@ class TagAdmin(admin.ModelAdmin):
         "title",
         "slug",
     )
-    readonly_fields = ("id",)
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
     inlines = (TaskInline,)
 
 
 UserAdmin.list_display += ("role",)
 UserAdmin.list_filter += ("role",)
-UserAdmin.fieldsets += (("Extra Fields", {"fields": ("role",)}),)
+UserAdmin.readonly_fields += (
+    "created_at",
+    "updated_at",
+)
+UserAdmin.fieldsets += (
+    (
+        "Extra Fields",
+        {
+            "fields": (
+                "role",
+                "created_at",
+                "updated_at",
+            )
+        },
+    ),
+)
 
 task_manager_admin_site.register(User, UserAdmin)
