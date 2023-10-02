@@ -18,7 +18,7 @@ class TaskAdmin(admin.ModelAdmin):
         "title",
         "created_at",
         "updated_at",
-        "due_to",
+        "deadline_at",
     )
     readonly_fields = (
         "id",
