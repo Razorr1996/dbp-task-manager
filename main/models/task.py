@@ -1,10 +1,11 @@
 from django.db import models
 
+from .base import BaseModel
 from .tag import Tag
 from .user import User
 
 
-class Task(models.Model):
+class Task(BaseModel):
     class State(models.TextChoices):
         NEW_TASK = "new_task", "New Task"
         IN_DEVELOPMENT = "in_development", "In Development"
@@ -21,8 +22,6 @@ class Task(models.Model):
 
     title = models.CharField(blank=True, max_length=255)
     description = models.TextField(blank=True, default="")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     deadline_at = models.DateField(null=True)
     state = models.CharField(
         max_length=255, default=State.NEW_TASK, choices=State.choices

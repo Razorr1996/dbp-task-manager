@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .base import BaseModel
 
-class User(AbstractUser):
+
+class User(AbstractUser, BaseModel):
     class Roles(models.TextChoices):
         DEVELOPER = "developer"
         MANAGER = "manager"
