@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
         apt-transport-https \
-        apt-transport-https \
         build-essential \
         ca-certificates \
         curl \
