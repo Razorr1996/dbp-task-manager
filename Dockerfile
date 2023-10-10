@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.11.6-slim-bookworm
 
 ENV PYTHONFAULTHANDLER=1
 ENV PYTHONUNBUFFERED=1
@@ -38,7 +38,8 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
-RUN poetry install  --no-interaction --no-ansi
+RUN poetry install  --no-interaction --no-ansi \
+    && poetry self add poetry-plugin-up
 
 ADD . /app
 ENV DJANGO_SETTINGS_MODULE="task_manager.settings"
